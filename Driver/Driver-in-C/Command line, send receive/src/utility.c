@@ -52,7 +52,7 @@ init_modem(int fd)   /* I - Serial port file */
 
     printf("buffer = %s\n", buffer);
 
-    if (strncmp(buffer, "OK", 2) == 0)
+    if (strncmp(buffer, "\r\nOK", 4) == 0)
       return (0);
   }
 
