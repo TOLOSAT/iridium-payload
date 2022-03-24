@@ -3,23 +3,10 @@
 
 //BASED ON CODE WRITTEN BY LAURENT ALLOZA FOR THE ENTRYSAT MISSION
 
-#include <stdio.h>   /* Standard input/output definitions */
-#include <string.h>  /* String function definitions */
-#include <unistd.h>  /* UNIX standard function definitions */
-#include <fcntl.h>   /* File control definitions */
-#include <errno.h>   /* Error number definitions */
-#include <termios.h> /* POSIX terminal control definitions */
-#include <sys/time.h>
-#include <time.h>
-
 #include "utility.h"
 
-// TimeOuts definitions (ms)
-#define IRDM_CHECKID_TIMEOUT	  1000 //default 100
-#define IRDM_SIGNALQ_TIMEOUT	10000
-#define IRDM_ALLOC_TIMEOUT		  100
-#define IRDM_WRITE_TIMEOUT		  500
-#define IRDM_SEND_TIMEOUT		19000
+// TimeOuts definitions (tenth of seconds)
+#define IRDM_TIMEOUT 50 //default 1
 
 #define BAUD_RATE 115200
 
@@ -43,7 +30,7 @@ int sbd_write(int ser, const void * str);
  * @param len : Size of string buffer (must be at least 1 + max string size)
  * @param timeoutms : TimeOut in ms
  */
-int sbd_getline(int ser, char *str, int len, long timeOutMs);
+int sbd_getline(int ser, char *str, int len);
 
 /**
  * Send command ATI0 (get ident) to the MODEM and check response.
