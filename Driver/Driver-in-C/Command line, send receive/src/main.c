@@ -1,51 +1,23 @@
 #include "iridium.h"
 #include "utility.h"
-#include "stdlib.h"
 
 int main(int argc, char **argv)
 {
     // ouverture du port à 115200 bauds
-    int fd = serialport_init("/dev/ttyUSB0", 115200);
-    fd = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY);
+    int fd = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY);
+    fcntl(fd, F_SETFL, 0); //Blocking read with timeout set by the VTIME parameter
 
-    struct termios options;
-
-    /*
-     * Get the current options for the port...
-     */
-
-    tcgetattr(fd, &options);
-
-    /*
-     * Set the baud rates to 19200...
-     */
-
-    cfsetispeed(&options, B115200);
-    cfsetospeed(&options, B115200);
-
-    /* set raw input, 1 second timeout */
-    options.c_cflag     |= (CLOCAL | CREAD);
-    options.c_lflag     &= ~(ICANON | ECHO | ECHOE | ISIG);
-    options.c_oflag     &= ~OPOST;
-    options.c_cc[VMIN]  = 0;
-    options.c_cc[VTIME] = 10; // 10*0.1 seconds
-
-    /* set the options */
-    tcsetattr(fd, TCSANOW, &options);
-
-    fcntl(fd, F_SETFL, FNDELAY);
-
-    if(fd==-1){
+    if(fd < 0){
+      printf("Failed to communicate with modem\n");
       return -1;
     }
 
-    /*
+    serial_options(fd, IRDM_TIMEOUT);
+
     if( init_modem(fd) < 0 ){
       printf("Failed to communicate with modem\n");
       return -1;
     }
-    */
-
 
 
     if(argc == 2){
@@ -55,7 +27,7 @@ int main(int argc, char **argv)
             if(res >= 0){
               printf("Success\n");
             } else{
-              printf("Error\n");
+              printf("Error: sbd_checkid returns %d\n", res);
             }
 
           } else if(strcmp(argv[1], "quality") == 0){
@@ -74,25 +46,20 @@ int main(int argc, char **argv)
           if(strcmp(argv[1], "putline") == 0){ //./program putline [message]
             sbd_write(fd, (void*) argv[2]);
 
-            if(argc == 6){ //./program putline [message] wait [timeout ms] [answer length]
+            if(argc == 4){ //./program putline [message] [answer length]
 
-              if(strcmp(argv[3], "wait") == 0){
+              int len = atoi(argv[3]);
 
-                long int to = atoi(argv[4]);
+              if(len < 1){
 
-                int len = atoi(argv[5]);
+                printf("Error: must specify reply length superior or equal to 0\n");
 
-                if(len < 1){
+              } else{
 
-                  printf("Error: must specify reply length superior or equal to 0\n");
+                char *ans = (char*) malloc(len*sizeof(char));
+                sbd_getline(fd, ans, len);
+                printf("Answer: %s\n", ans);
 
-                } else{
-
-                  char *ans = (char*) malloc(len*sizeof(char));
-                  sbd_getline(fd, ans, len, to);
-                  printf("Answer: %s\n", ans);
-
-                }
               }
             }
           } else if(argc == 4 && strcmp(argv[1], "send") == 0){ //./program send [message] size
@@ -117,7 +84,7 @@ int main(int argc, char **argv)
     }
 
     // fermeture du port
-    serialport_flush(fd);
+    tcflush(fd, TCIOFLUSH); //TODO: from http://todbot.com/blog/, may need to sleep(2) before for it to work
     close(fd);
 
     return 0;
