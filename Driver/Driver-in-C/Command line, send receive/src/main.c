@@ -3,7 +3,7 @@
 
 int main(int argc, char **argv)
 {
-    // ouverture du port à 115200 bauds
+    //Opens serial port
     int fd = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY);
     fcntl(fd, F_SETFL, 0); //Blocking read with timeout set by the VTIME parameter
 
@@ -19,7 +19,7 @@ int main(int argc, char **argv)
       return -1;
     }
 
-
+    //Check for command line arguments
     if(argc == 2){
 
           if(strcmp(argv[1], "checkid") == 0){
@@ -46,6 +46,8 @@ int main(int argc, char **argv)
           if(strcmp(argv[1], "putline") == 0){ //./program putline [message]
             sbd_write(fd, (void*) argv[2]);
 
+            usleep(100000);
+
             if(argc == 4){ //./program putline [message] [answer length]
 
               int len = atoi(argv[3]);
@@ -56,8 +58,8 @@ int main(int argc, char **argv)
 
               } else{
 
-                char *ans = (char*) malloc(len*sizeof(char));
-                sbd_getline(fd, ans, len);
+                char ans[len];
+                sbd_getline(fd, &ans, len);
                 printf("Answer: %s\n", ans);
 
               }
@@ -83,7 +85,7 @@ int main(int argc, char **argv)
           }
     }
 
-    // fermeture du port
+    //Closes port
     tcflush(fd, TCIOFLUSH); //TODO: from http://todbot.com/blog/, may need to sleep(2) before for it to work
     close(fd);
 

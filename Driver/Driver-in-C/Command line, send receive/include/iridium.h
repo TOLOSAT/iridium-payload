@@ -11,9 +11,9 @@
 #define BAUD_RATE 115200
 
 /**
- * Write a string to the MODEM and add CR/LF at end of line
+ * Write a string to the MODEM
  *
- * @param str : Pointer to null-terminated string
+ * @param str : Pointer string that ends in "\r\n"
  */
 int sbd_write(int ser, const void * str);
 
@@ -21,28 +21,22 @@ int sbd_write(int ser, const void * str);
 /**
  * Read a line string from the MODEM with timeout.
  *
- * Stop reading when receiving LF.
- * Remove CR/LF from received string.
- * Return a null-terminated string.
- * On time-out return an empty or partial string.
- *
  * @param str : Pointer to string buffer
  * @param len : Size of string buffer (must be at least 1 + max string size)
- * @param timeoutms : TimeOut in ms
  */
 int sbd_getline(int ser, char *str, int len);
 
 /**
  * Send command ATI0 (get ident) to the MODEM and check response.
  *
- * @returns TRUE (1) on SUCCESS, FALSE (0) on FAIL
+ * @returns 1 on SUCCESS, -1 or -2 on FAIL
  */
 int sbd_checkid(int ser);
 
 /**
  * Send command AT+CSQ to the MODEM and check response.
  *
- * @return The received signal strength indicator (0->5)
+ * @returns The received signal strength indicator (0->5)
  */
 int sbd_signal_quality(int ser);
 
