@@ -3,6 +3,7 @@
 # pip install astropy
 # pip install poliastro
 # pip install tqdm
+# pip install numba
 
 # works best in spyder IDE (best & simple IDE in my opinion <3)
 # also works fine in VScode
@@ -193,6 +194,7 @@ result = np.zeros((nb_step*subStep, nb_sat, 6))
 # result description
 # [time, satellite, :]
 # categories
+# [:,:,0] = distance from tolosat
 # [:,:,1] = attenuation loss (dB)
 # [:,:,2] = relative velocity (m/s)
 # [:,:,3] = doppler shift (Hz)
