@@ -1,0 +1,28 @@
+Prono
+
+Macron: 24  +4
+Le Pen: 24  -1
+Mélenchon: 22  
+Zemmour:9  -2 
+Pécresse:7  -2
+Jadot: 6  -1
+Roussel: 5  -3
+Lassalle: 3  
+Dupont-Aignan: 2
+Hidalgo: 2
+Poutou: 2  -1
+Artaud: 0  +1
+
+aft/forward
+overlap: se chevaucher
+
+EIRp: effective isotropic radiated power
+EIRP=Pt*Gt
+
+
+The feeder links also employ power control. The feeder downlink EIRP can vary from a 3
+dB increase in EIRP to a 1.5 dB decrease in EIRP. The EIRP is controlled in 6 steps of 0.5 dB
+and one step of 1.5 dB for an increase in EIRP from 1.5 to 3dB. The uplink feeder link power
+dynamic range is 38 dB with a maximum EIRP of 67dBW
+
+No Doppler shift mention, we may bury this parameter

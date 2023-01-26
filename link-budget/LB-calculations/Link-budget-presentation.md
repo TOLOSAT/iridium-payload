@@ -1,27 +1,28 @@
 This is an attempt to calculate a link budget for the Iridium payload inside of the Tolosat satellite.
 
-
 # Requirements
 Open a terminal 
 ```bash
 pip install numpy
 pip install control
 pip install astropy
+pip install TLE-tools
 ```
 
 # Hypothesis
 
-## Iridium numerical values
-Loss | Value | Meaning | Note
+## Iridium numerical values 
+Loss | Value | Meaning | Note|
  --- | --- | --- | ---
 P_PL | 1,5 W | Average Power during a transmit slot
-
+NEED TO BE VERIFIED
 ## Tolosat numerical values
 
 Loss | Value (dB) | Meaning | Note
  --- | --- | --- | ---
+ P_SAT | 1.5 | |
 Average Power during a transmit slot
-
+NEED TO BE VERFIED
 ## Losses
 Loss | Value (dB) | Meaning | Note
  --- | --- | --- | ---

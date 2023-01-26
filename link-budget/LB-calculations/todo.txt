@@ -1,0 +1,10 @@
+-understand the noise value and their use
+-review the free loss value and compare with existing one
+-
+
+
+- use MA study
+- integrate inside MA study
+- ppt
+
+- Find a way to compute sensibilty to adc

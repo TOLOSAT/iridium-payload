@@ -1,0 +1,13 @@
+undertand axial ratio
+verify benoit's calc
+do a schematic of all losses
+corect py issues with decimal division
+###########ON D its written -13.6!!!!! --->but need t undertsand what is Statistical value @90% earth for " G/T *Xpol_loss"
+data rate influence? 
+symbol rate one?
+reception threshold for both
+
+GSAT_max = 20.9 #[dB]
+verify calc
+verify free state whatis
+verify ar calculus
