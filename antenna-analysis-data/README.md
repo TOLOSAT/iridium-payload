@@ -1,1 +1,1 @@
-All those data were retrieved on the 21/03/22 by Cyril Cayhol from DEOS Department, Supaero, and Alexandre Laborie, Iridium subsystem leader. They were measured in Supaero's anechoic chamber, at te 2nd floor of building 007.
+All those data were retrieved on the 21/03/22 by Cyril Cayhol from DEOS Department, Supaero, and Alexandre Laborie, Iridium subsystem leader. They were measured in Supaero's anechoic chamber, at the 2nd floor of building 007.
